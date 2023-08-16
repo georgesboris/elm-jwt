@@ -1,6 +1,6 @@
 {
     "type": "package",
-    "name": "georgesboris/elm-jsonwebtoken",
+    "name": "georgesboris/elm-jwt",
     "summary": "Fork of ktonon/elm-jsonwebtoken with custom header encoder.",
     "license": "MIT",
     "version": "1.0.0",
