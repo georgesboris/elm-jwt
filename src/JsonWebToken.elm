@@ -141,6 +141,24 @@ encode (HMAC hashType) payloadEncoder secret payload =
            )
 
 
+{-| Create and sign a token, optionally passing extra values to be included in your JWT header.
+
+    import Json.Decode
+    import Json.Encode
+    import TestHelpers
+        exposing
+            ( aValidTokenWithCustomHeaders
+            , correctSecret
+            , encodePayload
+            , payload
+            , payloadDecoder
+            , wrongSecret
+            )
+
+    encodeWithHeaders hmacSha256 (\payload -> [ ( "kid", Json.Encode.int payload.iat) ]) encodePayload correctSecret payload
+    --> aValidTokenWithCustomHeaders
+
+-}
 encodeWithHeaders :
     Alg
     -> (payload -> List ( String, Encode.Value ))

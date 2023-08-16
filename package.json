@@ -4,7 +4,7 @@
   "description": "Fork of ktonon/elm-jsonwebtoken with custom header encoder.",
   "scripts": {
     "postinstall": "elm-tooling install",
-    "test": "elm-test-rs && elm-verify-examples"
+    "test": "elm-verify-examples && elm-test-rs"
   },
   "license": "MIT",
   "devDependencies": {

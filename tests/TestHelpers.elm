@@ -1,4 +1,4 @@
-module TestHelpers exposing (Payload, aValidToken, correctSecret, encodePayload, payload, payloadDecoder, wrongSecret)
+module TestHelpers exposing (Payload, aValidToken, aValidTokenWithCustomHeaders, correctSecret, encodePayload, payload, payloadDecoder, wrongSecret)
 
 import Json.Decode as Decode exposing (Decoder, decodeString)
 import Json.Decode.Pipeline as Pipeline exposing (required)
@@ -8,6 +8,11 @@ import Json.Encode as Encode
 aValidToken : String
 aValidToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZXN0IjoicGF5bG9hZCIsImlhdCI6MTUwMjc0MDYyN30=.aRRyq2PDaMD6lsFXJn53cCKPk83LL5hH9k_g71WGzUM="
+
+
+aValidTokenWithCustomHeaders : String
+aValidTokenWithCustomHeaders =
+    "eyJraWQiOjE1MDI3NDA2MjcsImFsZyI6IkhTMjU2IiwidHlwIjoiSldUIn0=.eyJ0ZXN0IjoicGF5bG9hZCIsImlhdCI6MTUwMjc0MDYyN30=.niGuotK3ij5RpPBkww-OXZjTUOJ7p86TCt2WU4UqIlc="
 
 
 correctSecret : String
