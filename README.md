@@ -1,3 +1,7 @@
+A fork of [ktonon/elm-jsonwebtoken](https://github.com/ktonon/elm-jsonwebtoken) with the changes below:
+
+- Adds the possibility of passing extra values to the JWT header.
+
 # elm-jsonwebtoken
 
 [![elm-package](https://img.shields.io/badge/elm-1.0.3-blue.svg)](http://package.elm-lang.org/packages/ktonon/elm-jsonwebtoken/latest)

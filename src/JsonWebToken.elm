@@ -1,5 +1,5 @@
 module JsonWebToken exposing
-    ( decode, encode
+    ( decode, encode, encodeWithHeaders
     , hmacSha224, hmacSha256, hmacSha384, hmacSha512
     , DecodeError(..)
     , Alg, Secret, Token, algDecoder
@@ -7,7 +7,7 @@ module JsonWebToken exposing
 
 {-| JSON Web Token encoder and decoder.
 
-@docs decode, encode
+@docs decode, encode, encodeWithHeaders
 
 
 ## Algorithms
@@ -28,7 +28,7 @@ module JsonWebToken exposing
 
 import Crypto.HMAC
 import Json.Decode as Decode exposing (Decoder, decodeString, errorToString)
-import Json.Decode.Pipeline as Pipeline exposing (optional, required)
+import Json.Decode.Pipeline exposing (optional, required)
 import Json.Encode as Encode
 import JsonWebToken.Base64 as Base64
 import JsonWebToken.HMAC as HMAC exposing (HashType(..))
@@ -122,7 +122,36 @@ encode :
 encode (HMAC hashType) payloadEncoder secret payload =
     let
         header =
-            encodeHeader (HMAC hashType)
+            encodeHeader (HMAC hashType) []
+                |> Encode.encode 0
+                |> Base64.encode
+
+        data =
+            payloadEncoder payload
+                |> Encode.encode 0
+                |> Base64.encode
+    in
+    sign hashType secret (header ++ "." ++ data)
+        |> (\digest ->
+                [ header
+                , data
+                , digest
+                ]
+                    |> String.join "."
+           )
+
+
+encodeWithHeaders :
+    Alg
+    -> (payload -> List ( String, Encode.Value ))
+    -> (payload -> Encode.Value)
+    -> Secret
+    -> payload
+    -> Token
+encodeWithHeaders (HMAC hashType) headerEncoder payloadEncoder secret payload =
+    let
+        header =
+            encodeHeader (HMAC hashType) (headerEncoder payload)
                 |> Encode.encode 0
                 |> Base64.encode
 
@@ -273,12 +302,14 @@ type Typ
 -- ENCODERS
 
 
-encodeHeader : Alg -> Encode.Value
-encodeHeader (HMAC hashType) =
+encodeHeader : Alg -> List ( String, Encode.Value ) -> Encode.Value
+encodeHeader (HMAC hashType) extraFields =
     Encode.object
-        [ ( "alg", HMAC.encodeHashType hashType )
-        , ( "typ", Encode.string "JWT" )
-        ]
+        (extraFields
+            ++ [ ( "alg", HMAC.encodeHashType hashType )
+               , ( "typ", Encode.string "JWT" )
+               ]
+        )
 
 
 

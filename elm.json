@@ -1,9 +1,9 @@
 {
     "type": "package",
-    "name": "ktonon/elm-jsonwebtoken",
-    "summary": "JSON Web Token encoder and decoder (JWT)",
+    "name": "georgesboris/elm-jsonwebtoken",
+    "summary": "Fork of ktonon/elm-jsonwebtoken with custom header encoder.",
     "license": "MIT",
-    "version": "1.0.4",
+    "version": "1.0.0",
     "exposed-modules": [
         "JsonWebToken"
     ],
@@ -20,6 +20,6 @@
         "zwilias/elm-utf-tools": "2.0.1 <= v < 3.0.0"
     },
     "test-dependencies": {
-        "elm-explorations/test": "1.0.0 <= v < 2.0.0"
+        "elm-explorations/test": "2.0.0 <= v < 3.0.0"
     }
 }

@@ -1,0 +1,14 @@
+{
+  "name": "elm-jwt",
+  "version": "1.0.0",
+  "description": "Fork of ktonon/elm-jsonwebtoken with custom header encoder.",
+  "scripts": {
+    "postinstall": "elm-tooling install",
+    "test": "elm-test-rs && elm-verify-examples"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "elm-tooling": "^1.14.0",
+    "elm-verify-examples": "^5.2.0"
+  }
+}
